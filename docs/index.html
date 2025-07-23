@@ -1,331 +1,117 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Complexity vs. Sophistication in Data Engineering</title>
+    <title>Secure Data Engineering Solutions</title>
+    <!-- Tailwind CSS CDN for modern, utility-first styling -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <!-- Chosen Palette: Light Green (#93d50a) & Dark Green (#004c23) -->
-    <!-- Application Structure Plan: A top-down, comparative SPA. The core design uses a persistent two-column layout to visually separate 'Complex' (left) from 'Sophisticated' (right), reinforcing the core contrast throughout the user's journey. Navigation allows users to jump to key comparative sections: 'Definitions', 'Characteristics', 'Visualized Effort', and 'The Goal'. This structure was chosen over a linear report format to facilitate direct comparison and make the abstract concepts more tangible and easier to digest. The interactive chart provides a quantitative anchor to the qualitative descriptions, enhancing comprehension. -->
-    <!-- Visualization & Content Choices: 
-        - Report Info: Core definitions of Complex vs. Sophisticated. -> Goal: Inform. -> Viz/Method: Side-by-side text cards. -> Interaction: Static. -> Justification: Clear, direct presentation of foundational concepts. -> Library/Method: HTML/Tailwind.
-        - Report Info: Lists of characteristics for each. -> Goal: Compare/Explore. -> Viz/Method: Two-column lists with distinct styling. -> Interaction: Hover effects to draw attention. -> Justification: Encourages detailed comparison of individual traits. -> Library/Method: HTML/Tailwind/JS for hover.
-        - Report Info: Implied effort and cost differences (maintenance, scalability, etc.). -> Goal: Quantify/Compare. -> Viz/Method: Bar Chart. -> Interaction: Tooltips on hover. -> Justification: Translates qualitative traits into a memorable, quantitative visual, highlighting the disparity in effort. -> Library/Method: Chart.js.
-        - Report Info: Metaphors (tangled yarn vs. clock). -> Goal: Summarize/Reinforce. -> Viz/Method: HTML/CSS-based visual representations. -> Interaction: Static. -> Justification: Creates a strong, memorable visual anchor for the key takeaway. -> Library/Method: HTML/Tailwind.
-    -->
-    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <!-- Google Font: Inter for a clean, modern look -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
     <style>
+        /* Custom styles to ensure Inter font is applied globally and for subtle scrollbar styling */
         body {
             font-family: 'Inter', sans-serif;
+            /* Dark background for a sophisticated feel */
+            background-color: hsl(220, 15%, 10%);
+            color: hsl(220, 20%, 80%); /* Light text for contrast */
+            min-height: 100vh; /* Ensure body takes full viewport height */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 1rem; /* Padding around the entire page */
+            overflow-y: auto; /* Allow vertical scrolling if content overflows */
         }
-        .chart-container {
-            position: relative;
-            width: 100%;
-            max-width: 800px;
-            margin-left: auto;
-            margin-right: auto;
-            height: 300px;
-            max-height: 400px;
+
+        /* Custom scrollbar for a more refined look */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
         }
-        @media (min-width: 768px) {
-            .chart-container {
-                height: 400px;
-            }
+        ::-webkit-scrollbar-track {
+            background: hsl(220, 15%, 15%); /* Darker track */
+            border-radius: 10px;
         }
-        .nav-link {
-            transition: color 0.3s ease, border-color 0.3s ease;
+        ::-webkit-scrollbar-thumb {
+            background: hsl(220, 20%, 30%); /* Muted thumb color */
+            border-radius: 10px;
         }
-        /* Custom colors for hover/border effects based on the new palette */
-        .hover-light-green-bg:hover {
-            background-color: rgba(147, 213, 10, 0.05); /* 5% opacity of #93d50a */
-        }
-        .border-light-green-200 {
-            border-color: rgba(147, 213, 10, 0.2); /* 20% opacity of #93d50a */
-        }
-        .hover-dark-green-bg:hover {
-            background-color: rgba(0, 76, 35, 0.05); /* 5% opacity of #004c23 */
-        }
-        .border-dark-green-200 {
-            border-color: rgba(0, 76, 35, 0.2); /* 20% opacity of #004c23 */
+        ::-webkit-scrollbar-thumb:hover {
+            background: hsl(220, 20%, 40%); /* Slightly lighter on hover */
         }
     </style>
 </head>
-<body class="bg-slate-50 text-slate-800">
+<body class="antialiased">
+    <!-- Main content container, centered and responsive -->
+    <div class="max-w-4xl w-full mx-auto p-8 md:p-12 bg-gradient-to-br from-gray-800 to-gray-900 rounded-xl shadow-2xl border border-gray-700">
+        <!-- Business Name -->
+        <h1 class="text-4xl md:text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-500 mb-4 text-center">
+            Secure Data Engineering Solutions
+        </h1>
 
-    <header class="bg-white/80 backdrop-blur-lg sticky top-0 z-50 border-b border-slate-200">
-        <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex items-center justify-between h-16">
-                <div class="flex items-center">
-                    <span class="font-bold text-lg text-slate-900">Data Engineering Design</span>
-                </div>
-                <div class="hidden md:block">
-                    <div class="ml-10 flex items-baseline space-x-4">
-                        <a href="#definitions" class="nav-link text-slate-600 hover:text-[#004c23] px-3 py-2 rounded-md text-sm font-medium border-b-2 border-transparent hover:border-[#004c23]">Definitions</a>
-                        <a href="#characteristics" class="nav-link text-slate-600 hover:text-[#004c23] px-3 py-2 rounded-md text-sm font-medium border-b-2 border-transparent hover:border-[#004c23]">Characteristics</a>
-                        <a href="#effort" class="nav-link text-slate-600 hover:text-[#004c23] px-3 py-2 rounded-md text-sm font-medium border-b-2 border-transparent hover:border-[#004c23]">Visualized Effort</a>
-                        <a href="#goal" class="nav-link text-slate-600 hover:text-[#004c23] px-3 py-2 rounded-md text-sm font-medium border-b-2 border-transparent hover:border-[#004c23]">The Goal</a>
-                    </div>
-                </div>
+        <!-- Tagline -->
+        <p class="text-xl md:text-2xl text-gray-300 mb-8 text-center font-light">
+            Secure Data Engineering for an AI-Driven Future.
+        </p>
+
+        <!-- Main Description Section -->
+        <div class="text-lg text-gray-300 leading-relaxed mb-8">
+            <p class="mb-4">
+                We are a specialized data engineering firm founded by two experts who believe that cutting-edge technology and uncompromising security can go hand-in-hand.
+            </p>
+            <p class="mb-4">
+                In today's data-driven world, businesses want to leverage the power of AI to make smarter decisions and gain a competitive edge. But for companies with strict security and privacy requirements—like those handling sensitive HIPAA data—this vision can feel out of reach. We bridge that gap.
+            </p>
+
+            <!-- Interactive "Discover More" section, initially hidden -->
+            <div id="expanded-description" class="hidden mt-6 pt-6 border-t border-gray-700">
+                <p class="mb-4">
+                    Our team combines deep expertise in:
+                </p>
+                <ul class="list-disc list-inside space-y-2 mb-6 ml-4">
+                    <li class="text-gray-300">
+                        <strong class="text-blue-400">Cloud Scaling & HIPAA Data:</strong> We build robust, scalable cloud data solutions that strictly adhere to privacy and compliance regulations. Our expertise ensures your sensitive data is managed with the highest standards of security and regulatory compliance.
+                    </li>
+                    <li class="text-gray-300">
+                        <strong class="text-purple-400">AI & Data Accessibility:</strong> We implement advanced AI techniques to transform raw, complex data into accessible, actionable insights. This empowers your business to make faster, more informed, and ultimately more valuable decisions.
+                    </li>
+                </ul>
+                <p>
+                    Security isn’t an afterthought for us; it’s the foundation of everything we build. By securing your most valuable asset—your data—we enable you to innovate with confidence. We provide the peace of mind you need to embrace revolutionary technology and drive your business forward.
+                </p>
             </div>
-        </nav>
-    </header>
-
-    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        
-        <div class="text-center mb-16">
-            <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight text-slate-900">
-                <span style="color: #93d50a;">Complex</span> vs. <span style="color: #004c23;">Sophisticated</span>
-            </h1>
-            <p class="mt-4 max-w-2xl mx-auto text-lg text-slate-600">An interactive guide to navigating design choices in data engineering.</p>
         </div>
 
-        <section id="definitions" class="mb-20">
-            <div class="text-center mb-8">
-                <h2 class="text-3xl font-bold tracking-tight text-slate-900">Core Definitions</h2>
-                <p class="mt-2 text-md text-slate-500">This section lays the foundation by defining our two key concepts. Understanding this distinction is the first step toward better system design.</p>
-            </div>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <div class="bg-white p-8 rounded-xl shadow-md border border-slate-200">
-                    <h3 class="text-2xl font-bold" style="color: #004c23;">Complex</h3>
-                    <p class="text-slate-600 leading-relaxed">A system with many interconnected, often disorganized parts. Its intricacy makes it difficult to understand, manage, and debug. Complexity is frequently an unintentional byproduct of organic growth, evolving requirements, and a lack of architectural foresight.</p>
-                </div>
-                <div class="bg-white p-8 rounded-xl shadow-md border border-slate-200">
-                    <h3 class="text-2xl font-bold" style="color: #004c23;">Sophisticated</h3>
-                    <p class="text-slate-600 leading-relaxed">A system that employs intelligent, elegant, and effective solutions. While it may be powerful, its design emphasizes clarity, maintainability, and robustness. Sophistication is the result of intentional, thoughtful engineering and deliberate design choices.</p>
-                </div>
-            </div>
-        </section>
-
-        <section id="characteristics" class="mb-20">
-            <div class="text-center mb-8">
-                <h2 class="text-3xl font-bold tracking-tight text-slate-900">Defining Characteristics</h2>
-                <p class="mt-2 text-md text-slate-500">Here we break down the typical traits of each system type. These characteristics highlight the practical, day-to-day differences a data engineer will experience.</p>
-            </div>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <div class="bg-white p-8 rounded-xl shadow-md border border-light-green-200">
-                    <h3 class="text-2xl font-bold text-center" style="color: #004c23;">Hallmarks of a Complex System</h3>
-                    <ul class="space-y-4">
-                        <li class="flex items-start p-3 rounded-lg hover-light-green-bg transition-colors duration-200">
-                            <span class="font-bold mr-3" style="color: #93d50a;">●</span>
-                            <div><strong class="font-semibold text-slate-800">Brittle & Intertwined:</strong> Changes cause unpredictable ripple effects.</div>
-                        </li>
-                        <li class="flex items-start p-3 rounded-lg hover-light-green-bg transition-colors duration-200">
-                            <span class="font-bold mr-3" style="color: #93d50a;">●</span>
-                            <div><strong class="font-semibold text-slate-800">High Maintenance Overhead:</strong> Requires significant manual effort to keep running.</div>
-                        </li>
-                        <li class="flex items-start p-3 rounded-lg hover-light-green-bg transition-colors duration-200">
-                            <span class="font-bold mr-3" style="color: #93d50a;">●</span>
-                            <div><strong class="font-semibold text-slate-800">Difficult to Debug:</strong> Root cause analysis is slow and painful.</div>
-                        </li>
-                        <li class="flex items-start p-3 rounded-lg hover-light-green-bg transition-colors duration-200">
-                            <span class="font-bold mr-3" style="color: #93d50a;">●</span>
-                            <div><strong class="font-semibold text-slate-800">Poor Scalability:</strong> Struggles to handle growth in data or features.</div>
-                        </li>
-                        <li class="flex items-start p-3 rounded-lg hover-light-green-bg transition-colors duration-200">
-                            <span class="font-bold mr-3" style="color: #93d50a;">●</span>
-                            <div><strong class="font-semibold text-slate-800">Unclear & Opaque:</strong> Difficult for new team members to understand.</div>
-                        </li>
-                    </ul>
-                </div>
-                <div class="bg-white p-8 rounded-xl shadow-md border border-dark-green-200">
-                    <h3 class="text-2xl font-bold text-center" style="color: #004c23;">Hallmarks of a Sophisticated System</h3>
-                    <ul class="space-y-4">
-                        <li class="flex items-start p-3 rounded-lg hover-dark-green-bg transition-colors duration-200">
-                            <span class="font-bold mr-3" style="color: #004c23;">●</span>
-                            <div><strong class="font-semibold text-slate-800">Modular & Well-Structured:</strong> Components are independent and well-defined.</div>
-                        </li>
-                        <li class="flex items-start p-3 rounded-lg hover-dark-green-bg transition-colors duration-200">
-                            <span class="font-bold mr-3" style="color: #004c23;">●</span>
-                            <div><strong class="font-semibold text-slate-800">Maintainable & Automated:</strong> Easy to manage with minimal manual intervention.</div>
-                        </li>
-                        <li class="flex items-start p-3 rounded-lg hover-dark-green-bg transition-colors duration-200">
-                            <span class="font-bold mr-3" style="color: #004c23;">●</span>
-                            <div><strong class="font-semibold text-slate-800">Robust & Resilient:</strong> Built with error handling and monitoring in mind.</div>
-                        </li>
-                        <li class="flex items-start p-3 rounded-lg hover-dark-green-bg transition-colors duration-200">
-                            <span class="font-bold mr-3" style="color: #004c23;">●</span>
-                            <div><strong class="font-semibold text-slate-800">Highly Scalable:</strong> Designed to grow efficiently and gracefully.</div>
-                        </li>
-                        <li class="flex items-start p-3 rounded-lg hover-dark-green-bg transition-colors duration-200">
-                            <span class="font-bold mr-3" style="color: #004c23;">●</span>
-                            <div><strong class="font-semibold text-slate-800">Clear & Documented:</strong> Easy for the entire team to understand and contribute.</div>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </section>
-
-        <section id="effort" class="mb-20">
-            <div class="text-center mb-8">
-                <h2 class="text-3xl font-bold tracking-tight text-slate-900">Visualized Engineering Effort</h2>
-                <p class="mt-2 text-md text-slate-500">This chart visualizes the long-term cost. While initial effort might vary, the operational burden of complexity becomes a significant drain over time compared to a well-designed, sophisticated system.</p>
-            </div>
-            <div class="bg-white p-4 sm:p-8 rounded-xl shadow-md border border-slate-200">
-                <div class="chart-container">
-                    <canvas id="effortChart"></canvas>
-                </div>
-            </div>
-        </section>
-
-        <section id="goal" class="mb-12">
-            <div class="text-center mb-8">
-                <h2 class="text-3xl font-bold tracking-tight text-slate-900">The Engineer's Goal</h2>
-                <p class="mt-2 text-md text-slate-500">Ultimately, the choice impacts the entire team's productivity and the system's reliability. The goal is to consciously build for sophistication, not to accidentally fall into complexity.</p>
-            </div>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
-                <div class="bg-white p-8 rounded-xl shadow-md border border-slate-200 text-center">
-                    <h3 class="text-xl font-bold mb-4" style="color: #004c23;">The Tangled Yarn</h3>
-                    <div class="h-24 w-24 mx-auto flex items-center justify-center relative my-4">
-                        <div class="absolute w-20 h-px rotate-12" style="background-color: #93d50a;"></div>
-                        <div class="absolute w-20 h-px rotate-45" style="background-color: #93d50a;"></div>
-                        <div class="absolute w-20 h-px -rotate-30" style="background-color: #93d50a;"></div>
-                        <div class="absolute w-16 h-px rotate-90" style="background-color: #93d50a;"></div>
-                        <div class="absolute w-16 h-px -rotate-60" style="background-color: #93d50a;"></div>
-                    </div>
-                    <p class="text-slate-600">A **complex** system is a tangled mess. It's difficult to unravel, prone to knots, and a constant source of frustration and unexpected problems.</p>
-                </div>
-                <div class="bg-white p-8 rounded-xl shadow-md border border-slate-200 text-center">
-                    <h3 class="text-xl font-bold mb-4" style="color: #004c23;">The Crafted Clock</h3>
-                     <div class="h-24 w-24 mx-auto flex items-center justify-center relative my-4 rounded-full border-2" style="border-color: #004c23;">
-                        <div class="absolute h-10 w-0.5 top-2.5 left-1/2 -ml-px origin-bottom" style="background-color: #004c23;"></div>
-                        <div class="absolute h-6 w-0.5 top-6 left-1/2 -ml-px origin-bottom rotate-45" style="background-color: #004c23;"></div>
-                    </div>
-                    <p class="text-slate-600">A **sophisticated** system is a finely crafted instrument. Its parts work in harmony. It is precise, reliable, and designed with purpose and clarity.</p>
-                </div>
-            </div>
-        </section>
-
-    </main>
-
-    <footer class="bg-slate-100 border-t border-slate-200 mt-12">
-        <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8 text-center text-sm text-slate-500">
-            <p>Interactive Guide created to illustrate key data engineering principles.</p>
+        <!-- Call-to-Action Button with interactive functionality -->
+        <div class="text-center">
+            <button id="discover-more-btn" class="px-8 py-3 bg-gradient-to-r from-blue-500 to-purple-600 text-white font-bold rounded-full shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-75">
+                Discover More
+            </button>
         </div>
-    </footer>
+
+        <!-- Simple Footer or Contact Call -->
+        <p class="text-sm text-gray-500 mt-10 text-center">
+            Let's build a secure, intelligent, and valuable future for your business.
+        </p>
+    </div>
 
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const ctx = document.getElementById('effortChart').getContext('2d');
-            
-            const effortData = {
-                labels: ['Maintenance', 'Scalability', 'Debugging', 'New Feature Dev'],
-                datasets: [
-                    {
-                        label: 'Complex System Effort',
-                        data: [9, 8, 9, 7],
-                        backgroundColor: 'rgba(147, 213, 10, 0.6)', /* Light Green */
-                        borderColor: 'rgba(147, 213, 10, 1)',    /* Light Green */
-                        borderWidth: 1,
-                        borderRadius: 4,
-                    },
-                    {
-                        label: 'Sophisticated System Effort',
-                        data: [2, 3, 2, 4],
-                        backgroundColor: 'rgba(0, 76, 35, 0.6)', /* Dark Green */
-                        borderColor: 'rgba(0, 76, 35, 1)',    /* Dark Green */
-                        borderWidth: 1,
-                        borderRadius: 4,
-                    }
-                ]
-            };
+        // Get the button and the expanded description element
+        const discoverMoreBtn = document.getElementById('discover-more-btn');
+        const expandedDescription = document.getElementById('expanded-description');
 
-            const effortChart = new Chart(ctx, {
-                type: 'bar',
-                data: effortData,
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: {
-                        legend: {
-                            position: 'top',
-                            labels: {
-                                font: {
-                                    family: 'Inter',
-                                    size: 14,
-                                }
-                            }
-                        },
-                        title: {
-                            display: true,
-                            text: 'Relative Engineering Effort Over Time',
-                            font: {
-                                size: 18,
-                                family: 'Inter',
-                                weight: 'bold',
-                            },
-                            color: '#1e293b'
-                        },
-                        tooltip: {
-                            backgroundColor: '#1e293b',
-                            titleFont: {
-                                family: 'Inter',
-                                weight: 'bold',
-                            },
-                            bodyFont: {
-                                family: 'Inter',
-                            }
-                        }
-                    },
-                    scales: {
-                        y: {
-                            beginAtZero: true,
-                            title: {
-                                display: true,
-                                text: 'Relative Effort / Cost',
-                                font: {
-                                    size: 14,
-                                    family: 'Inter',
-                                },
-                                color: '#475569'
-                            },
-                            grid: {
-                                color: '#e2e8f0'
-                            },
-                            ticks: {
-                                color: '#475569'
-                            }
-                        },
-                        x: {
-                            grid: {
-                                display: false
-                            },
-                            ticks: {
-                                color: '#475569',
-                                font: {
-                                    size: 14,
-                                    family: 'Inter',
-                                }
-                            }
-                        }
-                    }
-                }
-            });
+        // Add a click event listener to the button
+        discoverMoreBtn.addEventListener('click', () => {
+            // Toggle the 'hidden' class to show/hide the expanded content
+            expandedDescription.classList.toggle('hidden');
 
-            const navLinks = document.querySelectorAll('.nav-link');
-            navLinks.forEach(link => {
-                link.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    const targetId = e.currentTarget.getAttribute('href');
-                    const targetElement = document.querySelector(targetId);
-                    if (targetElement) {
-                        const headerOffset = 80;
-                        const elementPosition = targetElement.getBoundingClientRect().top;
-                        const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
-              
-                        window.scrollTo({
-                            top: offsetPosition,
-                            behavior: "smooth"
-                        });
-                    }
-                });
-            });
-
+            // Change button text based on visibility
+            if (expandedDescription.classList.contains('hidden')) {
+                discoverMoreBtn.textContent = 'Discover More';
+            } else {
+                discoverMoreBtn.textContent = 'Show Less';
+            }
         });
     </script>
-
 </body>
 </html>
