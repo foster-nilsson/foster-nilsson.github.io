@@ -3,115 +3,211 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Secure Data Engineering Solutions</title>
-    <!-- Tailwind CSS CDN for modern, utility-first styling -->
+    <title>Foster Nilsson - Data Engineering Resume</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Google Font: Inter for a clean, modern look -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
     <style>
-        /* Custom styles to ensure Inter font is applied globally and for subtle scrollbar styling */
         body {
             font-family: 'Inter', sans-serif;
-            /* Dark background for a sophisticated feel */
-            background-color: hsl(220, 15%, 10%);
-            color: hsl(220, 20%, 80%); /* Light text for contrast */
-            min-height: 100vh; /* Ensure body takes full viewport height */
+            background-color: #f3f4f6;
+            color: #374151;
+            line-height: 1.6;
+        }
+        .container {
+            max-width: 900px;
+            margin: 2rem auto;
+            padding: 2rem;
+            background-color: #ffffff;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border-radius: 0.75rem;
+        }
+        h1, h2 {
+            color: #1f2937;
+            font-weight: 600;
+        }
+        h1 {
+            font-size: 6rem; /* Increased font size for Foster Nilsson */
+            margin-bottom: 0.5rem; /* Adjusted margin for closer proximity */
+        }
+        h2 {
+            font-size: 1.75rem;
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+            border-bottom: 2px solid #e5e7eb;
+            padding-bottom: 0.5rem;
+        }
+        .section-title {
+            font-size: 1.25rem;
+            font-weight: 500;
+            color: #4b5563;
+        }
+        .experience-item {
+            margin-bottom: 1.5rem;
+            padding-left: 1rem;
+            border-left: 3px solid #6366f1; /* Indigo color for accent */
+        }
+        .experience-title {
+            font-weight: 600;
+            color: #1f2937;
+        }
+        .experience-company {
+            font-style: italic;
+            color: #4b5563;
+        }
+        .experience-date {
+            color: #6b7280;
+            font-size: 0.9rem;
+            margin-top: 0.25rem;
+        }
+        ul {
+            list-style: disc;
+            margin-left: 1.5rem;
+            margin-top: 0.5rem;
+        }
+        ul li {
+            margin-bottom: 0.5rem;
+        }
+        .skills-grid {
             display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 1rem; /* Padding around the entire page */
-            overflow-y: auto; /* Allow vertical scrolling if content overflows */
+            flex-wrap: wrap;
+            gap: 0.75rem;
+            margin-top: 1rem;
         }
-
-        /* Custom scrollbar for a more refined look */
-        ::-webkit-scrollbar {
-            width: 8px;
-            height: 8px;
+        .skill-tag {
+            background-color: #e0e7ff; /* Light indigo */
+            color: #4338ca; /* Darker indigo */
+            padding: 0.4rem 0.8rem;
+            border-radius: 0.5rem;
+            font-size: 0.9rem;
+            font-weight: 500;
         }
-        ::-webkit-scrollbar-track {
-            background: hsl(220, 15%, 15%); /* Darker track */
-            border-radius: 10px;
+        .education-item {
+            margin-bottom: 1.5rem;
         }
-        ::-webkit-scrollbar-thumb {
-            background: hsl(220, 20%, 30%); /* Muted thumb color */
-            border-radius: 10px;
+        .education-degree {
+            font-weight: 600;
+            color: #1f2937;
         }
-        ::-webkit-scrollbar-thumb:hover {
-            background: hsl(220, 20%, 40%); /* Slightly lighter on hover */
+        .education-institution {
+            font-style: italic;
+            color: #4b5563;
+        }
+        .education-date {
+            color: #6b7280;
+            font-size: 0.9rem;
+            margin-top: 0.25rem;
         }
     </style>
 </head>
-<body class="antialiased">
-    <!-- Main content container, centered and responsive -->
-    <div class="max-w-4xl w-full mx-auto p-8 md:p-12 bg-gradient-to-br from-gray-800 to-gray-900 rounded-xl shadow-2xl border border-gray-700">
-        <!-- Business Name -->
-        <h1 class="text-4xl md:text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-500 mb-4 text-center">
-            Secure Data Engineering Solutions
-        </h1>
+<body class="p-4 sm:p-6 md:p-8">
+    <div class="container">
+        <header class="text-center mb-8">
+            <h1 class="text-indigo-700">Foster Nilsson</h1>
+            <p class="text-lg text-gray-600">Data Engineer</p>
+        </header>
 
-        <!-- Tagline -->
-        <p class="text-xl md:text-2xl text-gray-300 mb-8 text-center font-light">
-            Secure Data Engineering for an AI-Driven Future.
-        </p>
-
-        <!-- Main Description Section -->
-        <div class="text-lg text-gray-300 leading-relaxed mb-8">
-            <p class="mb-4">
-                We are a specialized data engineering firm founded by two experts who believe that cutting-edge technology and uncompromising security can go hand-in-hand.
-            </p>
-            <p class="mb-4">
-                In today's data-driven world, businesses want to leverage the power of AI to make smarter decisions and gain a competitive edge. But for companies with strict security and privacy requirements—like those handling sensitive HIPAA data—this vision can feel out of reach. We bridge that gap.
-            </p>
-
-            <!-- Interactive "Discover More" section, initially hidden -->
-            <div id="expanded-description" class="hidden mt-6 pt-6 border-t border-gray-700">
-                <p class="mb-4">
-                    Our team combines deep expertise in:
-                </p>
-                <ul class="list-disc list-inside space-y-2 mb-6 ml-4">
-                    <li class="text-gray-300">
-                        <strong class="text-blue-400">Cloud Scaling & HIPAA Data:</strong> We build robust, scalable cloud data solutions that strictly adhere to privacy and compliance regulations. Our expertise ensures your sensitive data is managed with the highest standards of security and regulatory compliance.
-                    </li>
-                    <li class="text-gray-300">
-                        <strong class="text-purple-400">AI & Data Accessibility:</strong> We implement advanced AI techniques to transform raw, complex data into accessible, actionable insights. This empowers your business to make faster, more informed, and ultimately more valuable decisions.
-                    </li>
-                </ul>
-                <p>
-                    Security isn’t an afterthought for us; it’s the foundation of everything we build. By securing your most valuable asset—your data—we enable you to innovate with confidence. We provide the peace of mind you need to embrace revolutionary technology and drive your business forward.
-                </p>
+        <section class="mb-8">
+            <h2 class="text-indigo-600">Skills</h2>
+            <div class="skills-grid">
+                <span class="skill-tag">Python</span>
+                <span class="skill-tag">SQL</span>
+                <span class="skill-tag">Data Pipeline Development</span>
+                <span class="skill-tag">ETL</span>
+                <span class="skill-tag">Cloud Platforms (AWS, Azure)</span>
+                <span class="skill-tag">Relational Database Modeling</span>
+                <span class="skill-tag">PySpark/Spark</span>
+                <span class="skill-tag">GitHub</span>
+                <span class="skill-tag">CI/CD Pipelines</span>
+                <span class="skill-tag">Linux/Microsoft/MacOS</span>
+                <span class="skill-tag">Snowflake</span>
+                <span class="skill-tag">Databricks</span>
             </div>
-        </div>
+        </section>
 
-        <!-- Call-to-Action Button with interactive functionality -->
-        <div class="text-center">
-            <button id="discover-more-btn" class="px-8 py-3 bg-gradient-to-r from-blue-500 to-purple-600 text-white font-bold rounded-full shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-75">
-                Discover More
-            </button>
-        </div>
+        <section class="mb-8">
+            <h2 class="text-indigo-600">Professional Experience</h2>
 
-        <!-- Simple Footer or Contact Call -->
-        <p class="text-sm text-gray-500 mt-10 text-center">
-            Let's build a secure, intelligent, and valuable future for your business.
-        </p>
+            <div class="experience-item">
+                <h3 class="experience-title">Senior Data Engineer - Insurance</h3>
+                <p class="experience-company">ProAg (Direct Hire)</p>
+                <p class="experience-date">April 2025 to Current</p>
+                <ul class="list-disc ml-6 mt-2 text-gray-700">
+                    <li>Standardizing best practice documentation for modernizing into a Well-Architected cloud framework</li>
+                    <li>Implementing and documenting version control for CI/CD pipelines, utilizing Terraform with AWS modules</li>
+                    <li>Deploying scalable AWS EMR Serverless clusters to execute custom PySpark jobs</li>
+                    <li>Automating data migrations and pipelines from on-prem MSSQL databases to RDS and Aurora/PostgreSQL, scheduled through EventBridge/Step Functions</li>
+                </ul>
+            </div>
+
+            <div class="experience-item">
+                <h3 class="experience-title">Data Engineer - Royal Bank of Canada, Python Dev</h3>
+                <p class="experience-company">Accenture</p>
+                <p class="experience-date">August 2024 to January 2025</p>
+                <ul class="list-disc ml-6 mt-2 text-gray-700">
+                    <li>Developed and deployed Python-based data automation solutions, including a one and two-way Slack bot for automated Jira ticket creation, streamlining issue tracking and communication</li>
+                    <li>Developed and maintained automated data workflows using Python, integrating with diverse data sources and adhering to stringent security protocols including VPN and proxy connections</li>
+                    <li>Implemented and managed Docker containers for consistent application deployments across development, UAT, QA, and production, leveraging a secure secrets management system ("the vault") for credential handling</li>
+                    <li>Contributed to agile development processes through daily stand-ups and utilized Jira for project tracking, while operating within a highly regulated environment requiring adherence to strict banking security standards</li>
+                </ul>
+            </div>
+
+            <div class="experience-item">
+                <h3 class="experience-title">Data Engineer - Advanced Metering Infrastructure</h3>
+                <p class="experience-company">Xcel Energy</p>
+                <p class="experience-date">August 2023 to May 2024</p>
+                <ul class="list-disc ml-6 mt-2 text-gray-700">
+                    <li>Decreased data storage costs by 10% through efficient data modeling and compression</li>
+                    <li>Developed custom SQL queries & scripts to extract metrics from AMI data, resulting in $300k cost savings due to peak demand management</li>
+                    <li>Designed and implemented a scalable Snowflake data warehouse to ingest, store, and process massive volumes of AMI data from millions of smart meters</li>
+                    <li>Employed Snowflake's automatic clustering and micro-partitioning to enhance data organization and query performance, resulting in a 40% decrease in average query latency</li>
+                </ul>
+            </div>
+
+            <div class="experience-item">
+                <h3 class="experience-title">Data Science - Nuclear Power Plant</h3>
+                <p class="experience-company">Xcel Energy</p>
+                <p class="experience-date">May 2023 to August 2023</p>
+                <ul class="list-disc ml-6 mt-2 text-gray-700">
+                    <li>Designed and implemented data lakes using ADLS Gen2, including setting up hierarchical namespaces and optimizing storage for large datasets</li>
+                    <li>Built robust data pipelines using Databricks, leveraging Spark and Delta Lake for reliable and performant data processing</li>
+                    <li>Utilized cluster configuration and autoscaling within Databricks to handle varying workloads</li>
+                </ul>
+            </div>
+
+            <div class="experience-item">
+                <h3 class="experience-title">Data Engineer Apprentice - Distributed Intelligence</h3>
+                <p class="experience-company">Xcel Energy</p>
+                <p class="experience-date">April 2022 to May 2023</p>
+                <ul class="list-disc ml-6 mt-2 text-gray-700">
+                    <li>Developed and deployed serverless AWS Lambda functions using Python to automate and streamline Xcel's distributed intelligence program registration and installation processes</li>
+                    <li>Integrated PostgreSQL stored procedures with Python-based Lambda functions, creating seamless data flows between the database and serverless applications</li>
+                    <li>Migrated 30 API endpoints from a centralized server to serverless AWS Lambda functions written in Python, reducing infrastructure maintenance costs by 60% and improving overall system scalability</li>
+                </ul>
+            </div>
+        </section>
+
+        <section>
+            <h2 class="text-indigo-600">Education</h2>
+
+            <div class="education-item">
+                <h3 class="education-degree">Application Development</h3>
+                <p class="education-institution">Summit Academy, Minneapolis MN</p>
+                <p class="education-date">April 2022</p>
+                <ul class="list-disc ml-6 mt-2 text-gray-700">
+                    <li>Coursework: Java Programming 1 & 2, Agile Methodologies 1 & 2, IT Foundations 1 & 2, Microsoft Office, Business English, Professional Communication, Customer Service Communication</li>
+                </ul>
+            </div>
+
+            <div class="education-item">
+                <h3 class="education-degree">Associate of Science in Chemistry</h3>
+                <p class="education-institution">Iowa State University, Ames IA</p>
+                <p class="education-date">May 2019</p>
+                <ul class="list-disc ml-6 mt-2 text-gray-700">
+                    <li>Coursework: Mathematics (Calculus I & II, Statistics), Organic Chemistry I & II, Intro to Analytical Programming, Laboratory Techniques</li>
+                </ul>
+            </div>
+        </section>
     </div>
-
-    <script>
-        // Get the button and the expanded description element
-        const discoverMoreBtn = document.getElementById('discover-more-btn');
-        const expandedDescription = document.getElementById('expanded-description');
-
-        // Add a click event listener to the button
-        discoverMoreBtn.addEventListener('click', () => {
-            // Toggle the 'hidden' class to show/hide the expanded content
-            expandedDescription.classList.toggle('hidden');
-
-            // Change button text based on visibility
-            if (expandedDescription.classList.contains('hidden')) {
-                discoverMoreBtn.textContent = 'Discover More';
-            } else {
-                discoverMoreBtn.textContent = 'Show Less';
-            }
-        });
-    </script>
 </body>
 </html>
+
